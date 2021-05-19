@@ -1,7 +1,11 @@
 import React from "react";
-
+import CardDetails from "../components/Card/Card";
 function Card() {
-  return <div>Card</div>;
+  return (
+    <div>
+      <CardDetails />
+    </div>
+  );
 }
 
 export default Card;

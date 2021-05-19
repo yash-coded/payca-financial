@@ -77,7 +77,8 @@ const Index = () => {
       </Text>
       <Container
         display={["flex", "flex", "flex", "block"]}
-        position={["fixed", "fixed", "fixed", "relative"]}
+        top={[null, null, null, 0]}
+        position={["fixed", "fixed", "fixed", "sticky"]}
         width={["100%", "100%", "100%", "inherit"]}
         bottom={[0, 0, 0, ""]}
         // overflow={"hidden"}

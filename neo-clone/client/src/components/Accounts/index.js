@@ -39,6 +39,10 @@ function Index() {
     history.push("/accounts/rewards/wallet");
   };
 
+  const handleAccount = (type) => {
+    history.push(`/accounts/${type}`);
+  };
+
   return (
     <Container
       ml={["1rem", "1rem", "2rem", "6rem"]}
@@ -85,7 +89,7 @@ function Index() {
           label={`${"$" + creditAccount.due}  due in 14 days`}
           paid={false}
           light
-          // onClick={handleAccount}
+          onClick={() => handleAccount("credit")}
         />
         <AccountCard
           type="Savings"
@@ -93,7 +97,7 @@ function Index() {
           label="No actions required"
           paid={true}
           light
-          // onClick={handleAccount}
+          onClick={() => handleAccount("savings")}
         />
       </Container>
     </Container>

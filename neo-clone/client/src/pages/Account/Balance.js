@@ -18,13 +18,6 @@ const navLinks = [
 
 function Balance() {
   const { rewardsAccount } = useSelector((state) => state.accounts);
-  const [active, setActive] = useState(0);
-  const history = useHistory();
-
-  const handleClick = (link, index) => {
-    setActive(index);
-    history.push(link.path);
-  };
 
   return (
     <Container>
@@ -41,28 +34,7 @@ function Balance() {
           ${rewardsAccount.available} available
         </Text>
       </Container>
-      <Container
-        display="flex"
-        mx={["1rem", "1rem", "2rem", "3rem"]}
-        mt="3rem"
-        width={["inherit", "30rem"]}
-        borderBottom="1px solid #d3d3d3"
-      >
-        {navLinks.map((link, i) => (
-          <Text
-            onClick={() => handleClick(link, i)}
-            mr="2rem"
-            fontSize="1rem"
-            fontWeight="600"
-            color={i === active ? "#006EFF" : "#697780"}
-            borderBottom={i === active ? "2px solid #006EFF" : ""}
-            style={{ cursor: "pointer" }}
-            pb="1rem"
-          >
-            {link.label}
-          </Text>
-        ))}
-      </Container>
+      <TabNav tabs={navLinks} />
       <Switch>
         <Route path={`/accounts/rewards/wallet/balance/transaction`}>
           <TransactionDetails />
@@ -74,5 +46,38 @@ function Balance() {
     </Container>
   );
 }
+
+export const TabNav = ({ tabs }) => {
+  const [active, setActive] = useState(0);
+  const history = useHistory();
+  const handleClick = (link, index) => {
+    setActive(index);
+    history.push(link.path);
+  };
+  return (
+    <Container
+      display="flex"
+      mx={["1rem", "1rem", "2rem", "3rem"]}
+      mt="3rem"
+      width={["inherit", "30rem"]}
+      borderBottom="1px solid #d3d3d3"
+    >
+      {tabs.map((link, i) => (
+        <Text
+          onClick={() => handleClick(link, i)}
+          mr="2rem"
+          fontSize="1rem"
+          fontWeight="600"
+          color={i === active ? "#006EFF" : "#697780"}
+          borderBottom={i === active ? "2px solid #006EFF" : ""}
+          style={{ cursor: "pointer" }}
+          pb="1rem"
+        >
+          {link.label}
+        </Text>
+      ))}
+    </Container>
+  );
+};
 
 export default Balance;

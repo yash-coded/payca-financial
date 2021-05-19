@@ -7,7 +7,6 @@ function RewardDetails() {
   const {
     rewardsAccount: { currentBalanceDetails, totalBalanceDetails },
   } = useSelector((state) => state.accounts);
-
   return (
     <Container
       mx={["1rem", "1rem", "2rem", "3rem"]}
@@ -16,6 +15,22 @@ function RewardDetails() {
       width={["inherit", "30rem"]}
       p="1rem"
     >
+      <Details
+        currentBalanceDetails={currentBalanceDetails}
+        totalBalanceDetails={totalBalanceDetails}
+      />
+    </Container>
+  );
+}
+
+export const Details = ({
+  bg,
+  padding,
+  currentBalanceDetails,
+  totalBalanceDetails,
+}) => {
+  return (
+    <Container background={bg} p={padding}>
       <Container borderBottom="1px solid #d3d3d3">
         {currentBalanceDetails.map((item) => (
           <Container
@@ -44,6 +59,6 @@ function RewardDetails() {
       </Container>
     </Container>
   );
-}
+};
 
 export default RewardDetails;

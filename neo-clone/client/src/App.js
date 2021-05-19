@@ -15,7 +15,7 @@ import { setCurrentUser, removeUser } from "./redux/auth";
 import { Container } from "./components/Container";
 import Sidebar from "./components/Sidebar";
 import Rewards from "./pages/Account/Rewards";
-import RewardDetails from "./components/Accounts/Rewards";
+import SingleAccount from "./pages/Account/SingleAccount";
 import Card from "./pages/Card";
 import Profile from "./pages/Profile";
 import Accounts from "./pages/Account/Accounts";
@@ -79,6 +79,11 @@ function App() {
                       <Route
                         path="/accounts/rewards/wallet"
                         component={Rewards}
+                      />
+                      <Route
+                        exact
+                        path="/accounts/:type"
+                        component={SingleAccount}
                       />
 
                       <Route path="/card" exact component={Card} />
