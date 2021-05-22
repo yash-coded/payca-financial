@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "../../components/Container";
 import { Text } from "../../components/Text";
-import { useSelector } from "react-redux";
-import { useHistory, Route, Switch } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import TransactionDetails from "../../components/Accounts/Rewards/TransactionDetails";
 import RewardDetails from "../../components/Accounts/Rewards/RewardDetails";
+import { addCrumbs } from "../../redux/accounts/account";
 const navLinks = [
   {
     label: "Transactions",
-    path: "/accounts/rewards/wallet/balance/transaction",
+    component: <TransactionDetails />,
   },
   {
     label: "Details",
-    path: "/accounts/rewards/wallet/balance/details",
+    component: <RewardDetails />,
   },
 ];
 
 function Balance() {
   const { rewardsAccount } = useSelector((state) => state.accounts);
+  const [index, setIndex] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      addCrumbs({
+        label: "Rewards Cash",
+        path: "/accounts/rewards/wallet/balance/transaction",
+      })
+    );
+  }, []);
 
   return (
     <Container>
@@ -34,25 +45,18 @@ function Balance() {
           ${rewardsAccount.available} available
         </Text>
       </Container>
-      <TabNav tabs={navLinks} />
-      <Switch>
-        <Route path={`/accounts/rewards/wallet/balance/transaction`}>
-          <TransactionDetails />
-        </Route>
-        <Route path={`/accounts/rewards/wallet/balance/details`}>
-          <RewardDetails />
-        </Route>
-      </Switch>
+      <TabNav tabs={navLinks} setIndex={setIndex} />
+      {navLinks[index].component}
     </Container>
   );
 }
 
-export const TabNav = ({ tabs }) => {
+export const TabNav = ({ tabs, setIndex }) => {
   const [active, setActive] = useState(0);
-  const history = useHistory();
+
   const handleClick = (link, index) => {
     setActive(index);
-    history.push(link.path);
+    setIndex(index);
   };
   return (
     <Container
@@ -64,6 +68,7 @@ export const TabNav = ({ tabs }) => {
     >
       {tabs.map((link, i) => (
         <Text
+          key={i}
           onClick={() => handleClick(link, i)}
           mr="2rem"
           fontSize="1rem"

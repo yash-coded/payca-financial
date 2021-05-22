@@ -26,7 +26,7 @@ export const TabNav = ({ tabs, setIndex }) => {
       borderBottom="1px solid #d3d3d3"
     >
       {tabs.map((link, i) => (
-        <HoverState>
+        <HoverState key={i}>
           <Text
             onClick={() => handleClick(link, i)}
             // mr="2rem"
@@ -36,7 +36,7 @@ export const TabNav = ({ tabs, setIndex }) => {
             fontWeight="600"
             color={i === active ? "#006EFF" : "#697780"}
             borderBottom={i === active ? "2px solid #006EFF" : ""}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", whiteSpace: "nowrap" }}
             textAlign="center"
           >
             {link.label}

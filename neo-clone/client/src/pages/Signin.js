@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { InputBox } from "../components/Input";
 import { Text } from "../components/Text";
 import { Container } from "../components/Container";
@@ -6,13 +6,12 @@ import { Button } from "../components/Button";
 import { LinkText } from "../components/Link";
 import { auth } from "../firebase";
 import { Spinner } from "../components/Spinner";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/auth";
 import { useHistory, Link } from "react-router-dom";
 function Signin() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -42,10 +41,10 @@ function Signin() {
   };
   const validate = () => {
     if (!formData.email) {
-      setErrors({ ...errors, email: "Please enter your email" });
+      setErrors({ ...errors, email: "Enter Email" });
       return false;
     } else if (!formData.password) {
-      setErrors({ ...errors, password: "Please enter your password" });
+      setErrors({ ...errors, password: "Enter Password" });
       return false;
     } else return true;
   };
@@ -60,6 +59,22 @@ function Signin() {
             dispatch(setCurrentUser(user));
             history.push("/accounts");
             setLoading(false);
+          }
+        })
+        .catch((err) => {
+          switch (err.code) {
+            case "auth/wrong-password":
+              setFormData({ ...formData, password: "", email: "" });
+              setErrors({ ...errors, password: "Incorrect Password" });
+              setLoading(false);
+              break;
+            case "auth/invalid-email":
+              setFormData({ ...formData, password: "", email: "" });
+              setErrors({ ...errors, email: "Incorrect Email" });
+              setLoading(false);
+              break;
+            default:
+              return null;
           }
         });
     }
@@ -95,8 +110,9 @@ function Signin() {
           py="1.1rem"
           fontSize="1rem"
           px="1rem"
+          value={formData.email}
           width={["16rem", "380px"]}
-          placeholder="Email"
+          placeholder={errors.email ? errors.email : "Email"}
           my="1.5rem"
           name="email"
           type="email"
@@ -109,7 +125,8 @@ function Signin() {
           fontSize="1rem"
           px="1rem"
           width={["16rem", "380px"]}
-          placeholder="Password"
+          value={formData.password}
+          placeholder={errors.password ? errors.password : "Password"}
           my="1.5rem"
           onChange={handleChange}
           name="password"

@@ -32,8 +32,9 @@ export const Details = ({
   return (
     <Container background={bg} p={padding}>
       <Container borderBottom="1px solid #d3d3d3">
-        {currentBalanceDetails.map((item) => (
+        {currentBalanceDetails.map((item, i) => (
           <Container
+            key={i}
             display="flex"
             alignItems="center"
             justifyContent="space-between"
@@ -47,6 +48,7 @@ export const Details = ({
       <Container mt="1.4rem">
         {totalBalanceDetails.map((item, i) => (
           <Container
+            key={i}
             display="flex"
             alignItems="center"
             justifyContent="space-between"

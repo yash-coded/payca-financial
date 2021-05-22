@@ -7,6 +7,7 @@ import { TabNav } from "../TabNav";
 import CardDetails from "./CardDetails";
 import Settings from "./Settings";
 import Agreements from "./Agreements";
+import { useSelector } from "react-redux";
 const Highlight = styled.div`
   right: -100px;
   transform: rotate(-90deg);
@@ -32,9 +33,10 @@ const links = [
 ];
 
 const CardUi = () => {
+  const { freeze } = useSelector((state) => state.accounts);
   return (
     <Container
-      background="white"
+      background={"white"}
       height="8rem"
       width="14rem"
       boxShadow="5px 5px 25px rgba(0,0,0,0.1)"
@@ -48,10 +50,22 @@ const CardUi = () => {
       position="relative"
       overflow="hidden"
     >
+      {freeze && (
+        <Container
+          position="absolute"
+          height="100%"
+          top="0"
+          left="0"
+          width="100%"
+          background="#B1B9BD"
+          style={{ opacity: 0.5 }}
+          zIndex="1"
+        ></Container>
+      )}
       <Text
         fontFamily="Abril Fatface"
         fontSize={"2.2rem"}
-        backgroundColor="white"
+        // backgroundColor="white"
         color="#B99760"
         letterSpacing="0.1rem"
       >
@@ -65,7 +79,7 @@ const CardUi = () => {
         position="absolute"
         height="10rem"
         width="10rem"
-        background="#FAFBFB"
+        background={"#FAFBFB"}
       ></Highlight>
     </Container>
   );
@@ -78,6 +92,7 @@ function Card() {
       ml={["1rem", "1rem", "2rem", "6rem"]}
       mr={["1rem", "1rem", "1rem", "2rem"]}
       mt={["1rem", "1rem", "1rem", "3rem"]}
+      mb="10rem"
     >
       <CardUi />
       <Container mt="3rem">

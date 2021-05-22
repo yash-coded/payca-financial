@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "../Container";
 import { Text } from "../Text";
 import PinInput from "react-pin-input";
 import { Button } from "../Button";
+import { useDispatch } from "react-redux";
+import { setPin } from "../../redux/accounts/account";
 function ChangePin({ handleClose }) {
+  const dispatch = useDispatch();
+
+  const [newPin, setNewPin] = useState("");
+  const [errors, setErrors] = useState(null);
   const props = {
     inputStyle: {
       borderTopRightRadius: "1rem",
@@ -19,6 +25,16 @@ function ChangePin({ handleClose }) {
     style: {},
     inputStyleInvalid: {},
   };
+
+  const handlePin = () => {
+    if (newPin) {
+      dispatch(setPin(newPin));
+      handleClose();
+    } else {
+      setErrors("Enter a 4 Digit Pin");
+    }
+  };
+
   return (
     <Container p="1rem">
       <Text fontWeight="bold" fontSize="1.5rem">
@@ -28,16 +44,27 @@ function ChangePin({ handleClose }) {
         Set a new 4-digit PIN for purchases with your card's chip
       </Text>
 
-      <PinInput inputMode={"numeric"} length={4} {...props} />
-      <Container mt="1rem"></Container>
+      <PinInput
+        onChange={(e) => setNewPin(e)}
+        inputMode={"numeric"}
+        type="numeric"
+        length={4}
+        {...props}
+      />
+      {errors && (
+        <Text my="0.5rem" color="red" fontSize="0.8rem">
+          {errors}
+        </Text>
+      )}
       <Button
         width="100%"
         mx="auto"
         py="0.8rem"
         px="1rem"
+        mt="1rem"
         borderRadius="0.9rem"
         fontSize="1rem"
-        onClick={handleClose}
+        onClick={handlePin}
       >
         Ok
       </Button>

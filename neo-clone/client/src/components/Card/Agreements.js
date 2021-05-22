@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "../Container";
 import DataCard from "../DataCard";
-import { Text } from "../Text";
 import { GoLinkExternal } from "react-icons/go";
 function Agreements() {
   return (

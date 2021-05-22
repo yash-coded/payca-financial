@@ -4,7 +4,6 @@ import { Text } from "../../../components/Text";
 import dayjs from "dayjs";
 
 const generateMonths = () => {
-  const date = new Date();
   const months = [];
   for (let i = 0; i < 5; i++) {
     const month = dayjs().subtract(i, "month");
@@ -17,8 +16,9 @@ const generateMonths = () => {
 function Statements() {
   return (
     <Container background="white">
-      {generateMonths().map((month) => (
+      {generateMonths().map((month, i) => (
         <Container
+          key={i}
           p="1.3rem"
           style={{ cursor: "pointer" }}
           borderBottom="1px solid #828D95"

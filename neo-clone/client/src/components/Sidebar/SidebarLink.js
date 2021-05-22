@@ -64,7 +64,7 @@ const SidebarLink = ({ label, icon, active }) => {
         <SidebarIcon
           mr={["0", "0", "0", "0.6rem"]}
           fontSize="1.3rem"
-          px={["0.8rem", "0.8rem", "0.8rem", "0rem"]}
+          px={["0.3rem", "0.8rem", "0.8rem", "0rem"]}
         >
           {" "}
           {icon}

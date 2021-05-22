@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  Route,
-  Switch,
-  useHistory,
-  withRouter,
-  useLocation,
-} from "react-router-dom";
+import { Route, Switch, useHistory, withRouter } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import Home from "./pages/Home";
+
 import { auth } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser, removeUser } from "./redux/auth";
@@ -22,19 +16,19 @@ import Accounts from "./pages/Account/Accounts";
 function App() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const history = useHistory();
   const { user } = useSelector((state) => state.auth);
-  // console.log("userrr=>>", user);
 
   useEffect(() => {
     setLoading(true);
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setLoading(false);
 
         dispatch(setCurrentUser(currentUser));
-        history.push("/accounts");
+        // history.push("/accounts");
       } else {
         setLoading(false);
 
@@ -47,16 +41,6 @@ function App() {
       unsubscribe();
     };
   }, []);
-
-  const SecuredRoute = ({ path, component, exact }) => {
-    return (
-      <Route
-        exact
-        path={path}
-        component={user ? component : history.push("/signin")}
-      />
-    );
-  };
 
   return (
     <div className="App">

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 
 const ToggleContainer = styled.div`
@@ -28,37 +27,6 @@ const ToggleContainer = styled.div`
     position: absolute;
     width: 1px;
   }
-
-  /* .wrg-toggle-check,
-  .wrg-toggle-uncheck {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-    line-height: 0;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-  } */
-  /* .wrg-toggle-check {
-    left: 8px;
-  }
-  .wrg-toggle-uncheck {
-    opacity: 1;
-    right: 10px;
-  } */
-
-  /* .wrg-toggle-uncheck span,
-  .wrg-toggle-check span {
-    align-items: center;
-    display: flex;
-    height: 10px;
-    justify-content: center;
-    position: relative;
-    width: 10px;
-  } */
 
   .wrg-toggle-container {
     width: 50px;

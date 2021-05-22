@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Container } from "../Container";
-import { Text } from "../Text";
 import DataCard from "../DataCard";
 import { SimpleButton } from "../SimpleButton";
 import { AiFillEye } from "react-icons/ai";
@@ -24,7 +23,7 @@ function CardDetails() {
     }
   };
   return (
-    <>
+    <Container>
       <Container mb="1rem" borderRadius="1rem" overflow="hidden">
         <DataCard item={{ label: "Card Holder Name", value: "Yash Patel" }} />
         <DataCard
@@ -53,7 +52,7 @@ function CardDetails() {
           setShowAccount={setShowAccount}
         />
       </Modal>
-    </>
+    </Container>
   );
 }
 

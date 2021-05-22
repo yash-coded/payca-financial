@@ -1,4 +1,3 @@
-import React from "react";
 import CardDetails from "../components/Card/Card";
 function Card() {
   return (

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { space, layout } from "styled-system";
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Container } from "./Container";
+
 const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -10,11 +9,10 @@ const Overlay = styled(motion.div)`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
+  z-index: 30;
 `;
 
 const ModalContainer = styled(motion.div)`
-  /* width: 90%; */
-  /* height: 50%; */
   background-color: white;
   position: absolute;
   top: 50%;
@@ -38,6 +36,7 @@ const containerVariant = {
   initial: {
     top: "60%",
     opacity: 0,
+
     transition: { type: "spring" },
   },
   isOpen: { top: "50%", opacity: 1 },

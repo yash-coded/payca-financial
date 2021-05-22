@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Container } from "../Container";
 import { Text } from "../Text";
 import PinInput from "react-pin-input";
-import { ShowDetails } from "../ShowDetails";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Modal from "../Modal";
+
 import { Button } from "../Button";
 export const GhostButton = styled.button`
   cursor: pointer;
@@ -22,7 +22,10 @@ export const GhostButton = styled.button`
 
 function ViewPinModal({ handleClose }) {
   const [showPin, setShowPin] = useState(false);
-  console.log(showPin);
+  const {
+    creditAccount: { pin },
+  } = useSelector((state) => state.accounts);
+
   const props = {
     inputStyle: {
       borderTopRightRadius: "1rem",
@@ -48,10 +51,12 @@ function ViewPinModal({ handleClose }) {
       </Text>
 
       <PinInput
-        initialValue={"1234"}
+        initialValue={pin}
         secret={showPin ? false : true}
         inputMode={"numeric"}
-        type={showPin ? "custom" : "string"}
+        type={"numeric"}
+        readOnly
+        disabled
         length={4}
         {...props}
       />
@@ -60,6 +65,7 @@ function ViewPinModal({ handleClose }) {
           {!showPin ? " Show Pin" : "Hide Pin"}
         </GhostButton>
       </Container>
+
       <Button
         width="100%"
         mx="auto"

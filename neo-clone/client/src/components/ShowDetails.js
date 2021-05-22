@@ -28,9 +28,9 @@ export const ShowDetails = ({ handleClose, setShowAccount }) => {
 
   const handleBlur = (e) => {
     if (formData.email === "" && e.target.name === "email") {
-      setErrors({ ...errors, email: "Please enter your email" });
+      setErrors({ ...errors, email: "Enter Email" });
     } else if (formData.password === "" && e.target.name === "password") {
-      setErrors({ ...errors, password: "Please enter your password" });
+      setErrors({ ...errors, password: "Enter Password" });
     }
   };
   const validate = () => {
@@ -48,12 +48,29 @@ export const ShowDetails = ({ handleClose, setShowAccount }) => {
       auth
         .signInWithEmailAndPassword(formData.email, formData.password)
         .then((user) => {
-          console.log(user);
           if (user) {
             setShowAccount((val) => !val);
             handleClose();
             setLoading(false);
           }
+        })
+        .catch((err) => {
+          switch (err.code) {
+            case "auth/wrong-password":
+              setFormData({ ...formData, password: "", email: "" });
+              setErrors({ ...errors, password: "Incorrect Password" });
+              setLoading(false);
+              break;
+            case "auth/invalid-email":
+              setFormData({ ...formData, password: "", email: "" });
+              setErrors({ ...errors, email: "Incorrect Email" });
+              setLoading(false);
+              break;
+            default:
+              return null;
+          }
+          // wrong password - auth/wrong-password
+          // wrong email - auth/invalid-email
         });
     }
   };
@@ -81,8 +98,9 @@ export const ShowDetails = ({ handleClose, setShowAccount }) => {
               fontSize="1rem"
               px="1rem"
               width={["15rem"]}
+              value={formData.email}
               mx="auto"
-              placeholder={errors.email ? "Enter Email" : "Email"}
+              placeholder={errors.email ? errors.email : "Email"}
               my="1.5rem"
               name="email"
               type="email"
@@ -96,7 +114,8 @@ export const ShowDetails = ({ handleClose, setShowAccount }) => {
               px="1rem"
               width={["15rem"]}
               mx="auto"
-              placeholder={errors.password ? "Enter Password" : "Password"}
+              value={formData.password}
+              placeholder={errors.password ? errors.password : "Password"}
               my="1.5rem"
               onChange={handleChange}
               name="password"

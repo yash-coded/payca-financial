@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { InputBox } from "../components/Input";
 import { Text } from "../components/Text";
 import { Container } from "../components/Container";
@@ -6,7 +6,7 @@ import { Button } from "../components/Button";
 import { LinkText } from "../components/Link";
 import { Spinner } from "../components/Spinner";
 import { auth } from "../firebase";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/auth";
 import { useHistory, Link } from "react-router-dom";
 function Signup() {
@@ -61,15 +61,45 @@ function Signup() {
             dispatch(setCurrentUser(user));
             history.push("/accounts");
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          setFormData({ ...formData, email: "", password: "", cPassword: "" });
+          switch (err.code) {
+            case "auth/email-already-in-use":
+              setFormData({
+                ...formData,
+                password: "",
+                email: "",
+                cPassword: "",
+              });
+              setErrors({ ...errors, email: "Email already exists" });
+              setLoading(false);
+              break;
+            case "auth/invalid-email":
+              setFormData({
+                ...formData,
+                password: "",
+                email: "",
+                cPassword: "",
+              });
+              setErrors({ ...errors, email: "Bad Email" });
+              setLoading(false);
+              break;
+            default:
+              setLoading(false);
+
+              return null;
+          }
         });
     }
   };
 
   const handleBlur = (e) => {
     if (formData.email === "" && e.target.name === "email") {
-      setErrors({ ...errors, email: "Please enter your email" });
+      setErrors({ ...errors, email: "Enter Email" });
     } else if (formData.password === "" && e.target.name === "password") {
-      setErrors({ ...errors, password: "Please enter your password" });
+      setErrors({ ...errors, password: "Enter Password" });
     } else if (formData.cPassword === "" && e.target.name === "cPassword") {
       setErrors({ ...errors, diffPassword: "Passwords do not match" });
     }
@@ -105,13 +135,14 @@ function Signup() {
           fontSize="1rem"
           px="1rem"
           width={["16rem", "380px"]}
-          placeholder={errors.email ? "Enter Email" : "Email"}
+          placeholder={errors.email ? errors.email : "Email"}
           my="1.5rem"
           name="email"
           type="email"
           onChange={handleChange}
           onBlur={handleBlur}
           error={errors.email ? true : false}
+          value={formData.email}
         />
         <InputBox
           py="1.1rem"
@@ -125,6 +156,7 @@ function Signup() {
           type="password"
           onBlur={handleBlur}
           error={errors.password ? true : false}
+          value={formData.password}
         />
         <InputBox
           py="1.1rem"
@@ -140,6 +172,7 @@ function Signup() {
           type="password"
           onBlur={handleBlur}
           error={errors.diffPassword ? true : false}
+          value={formData.cPassword}
         />
 
         <Button

@@ -37,7 +37,7 @@ export const TransactionCard = ({ transaction }) => {
           </Text>
         </Container>
       </Container>
-      <Text color="#697780">
+      <Text style={{ whiteSpace: "nowrap" }} color="#697780">
         {transaction.type === "DEBIT" && "-"} $
         {(transaction.amountCents / 100).toFixed(2)}
       </Text>
@@ -52,7 +52,7 @@ function Transactions() {
   return (
     <Container>
       {transactions.map((item, i) => (
-        <Container>
+        <Container key={i}>
           {dayjs(item?.completedAt).format("MMMM") !==
             dayjs(transactions[i + 1]?.completedAt).format("MMMM") && (
             <Text ml="1rem" mb="0.8rem">

@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Container } from "../../../components/Container";
 import { Text } from "../../../components/Text";
 import DataCard from "../../DataCard";
-import styled from "styled-components";
 import Modal from "../../Modal";
 import { SimpleButton } from "../../SimpleButton";
 
@@ -15,8 +14,8 @@ function Account() {
   } = useSelector((state) => state.accounts);
   return (
     <Container>
-      {accountDetails.map((item) => (
-        <Container>
+      {accountDetails.map((item, i) => (
+        <Container key={i}>
           <DataCard item={item} />
         </Container>
       ))}

@@ -60,6 +60,10 @@ export const accountSlice = createSlice({
         //   value: "component",
         // },
       ],
+      paymentDue: { label: "14 Days", value: "14days" },
+
+      creditLimit: { label: "$100", value: "100" },
+      pin: "1234",
     },
     savingsAccount: {
       available: 5018.95,
@@ -86,6 +90,7 @@ export const accountSlice = createSlice({
           value: 358.59,
         },
       ],
+      promotions: [],
     },
     freeze: false,
   },
@@ -94,7 +99,7 @@ export const accountSlice = createSlice({
       const filteredArr = state.breadcrumbs.filter(
         (crumb) => crumb.path === payload.path
       );
-      console.log(filteredArr);
+
       filteredArr.length === 0 && state.breadcrumbs.push(payload);
     },
 
@@ -113,11 +118,31 @@ export const accountSlice = createSlice({
     freezeCard: (state, { payload }) => {
       state.freeze = !payload;
     },
+    setPaymentDue: (state, { payload }) => {
+      state.creditAccount.paymentDue = payload;
+    },
+    setCreditLimit: (state, { payload }) => {
+      state.creditAccount.creditLimit = payload;
+    },
+    addPromotion: (state, { payload }) => {
+      state.rewardsAccount.promotions.push(payload);
+    },
+    setPin: (state, { payload }) => {
+      state.creditAccount.pin = payload;
+    },
   },
 });
 
 // export actions
-export const { addCrumbs, removeCrumbs, resetCrumbs, freezeCard } =
-  accountSlice.actions;
+export const {
+  addCrumbs,
+  removeCrumbs,
+  resetCrumbs,
+  freezeCard,
+  setPaymentDue,
+  setCreditLimit,
+  addPromotion,
+  setPin,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;
