@@ -10,7 +10,7 @@ import Modal from "../Modal";
 import ViewPin from "./ViewPinModal";
 import ChangePin from "./ChangePin";
 function Settings() {
-  // const [isToggled, setIsToggled] = useState(false);
+  document.title = "Settings";
 
   const dispatch = useDispatch();
   const { freeze } = useSelector((state) => state.accounts);

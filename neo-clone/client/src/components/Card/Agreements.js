@@ -3,6 +3,7 @@ import { Container } from "../Container";
 import DataCard from "../DataCard";
 import { GoLinkExternal } from "react-icons/go";
 function Agreements() {
+  document.title = "Agreements";
   return (
     <Container>
       <DataCard

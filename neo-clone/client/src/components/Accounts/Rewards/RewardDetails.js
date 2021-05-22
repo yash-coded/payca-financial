@@ -4,6 +4,7 @@ import { Text } from "../../Text";
 import { useSelector } from "react-redux";
 
 function RewardDetails() {
+  document.title = "Details";
   const {
     rewardsAccount: { currentBalanceDetails, totalBalanceDetails },
   } = useSelector((state) => state.accounts);

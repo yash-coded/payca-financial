@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/auth";
 import { useHistory, Link } from "react-router-dom";
 function Signin() {
+  document.title = "Sign In";
+
   const dispatch = useDispatch();
 
   const history = useHistory();

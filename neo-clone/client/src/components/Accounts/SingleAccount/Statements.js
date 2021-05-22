@@ -14,6 +14,7 @@ const generateMonths = () => {
 };
 
 function Statements() {
+  document.title = "Statements";
   return (
     <Container background="white">
       {generateMonths().map((month, i) => (

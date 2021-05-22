@@ -12,6 +12,7 @@ const Icon = styled.span`
 `;
 
 function CardDetails() {
+  document.title = "Card Details";
   const [showModal, setShowModal] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
 

@@ -5,6 +5,7 @@ import EditPhone from "./EditPhone";
 import { useSelector } from "react-redux";
 import EditAddress from "./EditAddress";
 function PersonalDetails() {
+  document.title = "Personal Details";
   const { phoneNumber, address } = useSelector((state) => state.auth);
 
   const personalData = [

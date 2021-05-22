@@ -9,6 +9,7 @@ import { SimpleButton } from "../../SimpleButton";
 import { ShowDetails } from "../../ShowDetails";
 
 function Account() {
+  document.title = "Account";
   const {
     creditAccount: { accountDetails },
   } = useSelector((state) => state.accounts);

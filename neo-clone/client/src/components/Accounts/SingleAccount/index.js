@@ -42,6 +42,7 @@ const links = [
 ];
 
 const AccountDetails = ({ type }) => {
+  document.title = "Transactions";
   const { creditAccount, savingsAccount } = useSelector(
     (state) => state.accounts
   );

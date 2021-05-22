@@ -4,6 +4,7 @@ import TransactionSwitch from "./TransactionSwitch";
 import PaymentDue from "./PaymentDue";
 import CreditLimit from "./CreditLimit";
 function Notifications() {
+  document.title = "Notifications";
   const data = [
     {
       label: "Transactions",

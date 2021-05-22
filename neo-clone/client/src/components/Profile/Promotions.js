@@ -8,6 +8,7 @@ import { addPromotion } from "../../redux/accounts/account";
 import { InputBox } from "../Input";
 import Modal from "../Modal";
 function Promotions() {
+  document.title = "Promotions";
   const [showModal, setShowModal] = useState(false);
   const [code, setCode] = useState(null);
   const [errors, setErrors] = useState(null);

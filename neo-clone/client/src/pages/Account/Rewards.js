@@ -25,6 +25,7 @@ const Seperator = styled.span`
 `;
 
 function Rewards({ match }) {
+  document.title = "Wallet";
   const { breadcrumbs } = useSelector((state) => state.accounts);
   const location = useLocation();
 

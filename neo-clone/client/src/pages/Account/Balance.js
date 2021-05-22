@@ -17,6 +17,7 @@ const navLinks = [
 ];
 
 function Balance() {
+  document.title = "Transactions";
   const { rewardsAccount } = useSelector((state) => state.accounts);
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
