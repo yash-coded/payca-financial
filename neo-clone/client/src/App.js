@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
 import {
   Route,
   Switch,
@@ -6,19 +6,22 @@ import {
   withRouter,
   useLocation,
 } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Signin from "./pages/Signin";
 import { auth } from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser, removeUser } from "./redux/auth";
 import { Container } from "./components/Container";
 import Sidebar from "./components/Sidebar";
-import Rewards from "./pages/Account/Rewards";
-import SingleAccount from "./pages/Account/SingleAccount";
-import Card from "./pages/Card";
-import Profile from "./pages/Profile";
-import Accounts from "./pages/Account/Accounts";
-import { Spinner } from "./components/Spinner";
+import Fallback from "./components/Fallback";
+
+//code splitting
+const Signup = lazy(() => import("./pages/Signup"));
+const Signin = lazy(() => import("./pages/Signin"));
+const Rewards = lazy(() => import("./pages/Account/Rewards")); //page
+const SingleAccount = lazy(() => import("./pages/Account/SingleAccount")); //page
+const Card = lazy(() => import("./pages/Card")); //page
+const Profile = lazy(() => import("./pages/Profile")); //page
+const Accounts = lazy(() => import("./pages/Account/Accounts")); //page
+
 function App() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -51,17 +54,9 @@ function App() {
     <div className="App">
       <Switch>
         {loading ? (
-          <Container
-            justifyContent="center"
-            alignItems="center"
-            display="flex"
-            width="100vw"
-            height="100vh"
-          >
-            <Spinner />
-          </Container>
+          <Fallback />
         ) : (
-          <>
+          <Suspense fallback={<Fallback />}>
             {" "}
             {user ? (
               <>
@@ -70,6 +65,7 @@ function App() {
                   display={["block", "block", "block", "flex"]}
                 >
                   <Sidebar />
+
                   <>
                     <Route path="/accounts" exact component={Accounts} />
                     <Route
@@ -93,7 +89,7 @@ function App() {
                 <Route path="/signin" exact component={Signin} />
               </>
             )}
-          </>
+          </Suspense>
         )}
       </Switch>
     </div>

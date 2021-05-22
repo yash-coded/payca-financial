@@ -1,8 +1,8 @@
-import RewardDetails from "../../components/Accounts/Rewards";
 import { Container } from "../../components/Container";
 import { Text } from "../../components/Text";
 import { useSelector } from "react-redux";
-
+import { Suspense, lazy } from "react";
+import Fallback from "../../components/Fallback";
 import {
   Route,
   Switch,
@@ -12,7 +12,10 @@ import {
 } from "react-router-dom";
 import { GoChevronRight } from "react-icons/go";
 import styled from "styled-components";
-import Balance from "./Balance";
+
+//code splitting
+const RewardDetails = lazy(() => import("../../components/Accounts/Rewards")); //page
+const Balance = lazy(() => import("./Balance")); //page
 
 const Seperator = styled.span`
   margin-left: 0.4rem;
@@ -103,15 +106,18 @@ function Rewards({ match }) {
   return (
     <Container mb="8rem" width="100%">
       <Crumbs />
-
       <Switch>
-        <Route
-          path={`/accounts/rewards/wallet`}
-          exact
-          component={RewardDetails}
-        />
+        <Suspense fallback={<Fallback />}>
+          <>
+            <Route
+              path={`/accounts/rewards/wallet`}
+              exact
+              component={RewardDetails}
+            />
 
-        <Route path={`${url}/balance`} component={Balance} />
+            <Route path={`${url}/balance`} component={Balance} />
+          </>
+        </Suspense>
       </Switch>
     </Container>
   );

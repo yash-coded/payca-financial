@@ -103,9 +103,10 @@ const Index = () => {
           color="#003254"
           letterSpacing="0.1rem"
           mx={["0.5rem", "0.5rem", "0.5rem", "2rem"]}
-          // mr={["0.5rem", "0.5rem", "0.5rem", "2rem"]}
           mt="3rem"
           display={["none", "none", "none", "block"]}
+          onClick={handleHome}
+          style={{ cursor: "pointer" }}
         >
           PayCA
         </Text>
