@@ -51,7 +51,9 @@ function Signin() {
       return false;
     } else return true;
   };
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+
     if (validate()) {
       setLoading(true);
       auth
@@ -91,75 +93,78 @@ function Signin() {
       justifyContent="center"
       alignItems="center"
     >
-      <Container>
-        <Text
-          fontFamily="Abril Fatface"
-          mb="2rem"
-          fontSize="2rem"
-          color="#051c2c"
-          letterSpacing="0.1rem"
-        >
-          PayCA
-        </Text>
-        <Text
-          fontSize="1.3rem"
-          fontWeight="bold"
-          fontFamily="Arial"
-          color="#051C2C"
-        >
-          Welcome back
-        </Text>
-        <InputBox
-          py="1.1rem"
-          fontSize="1rem"
-          px="1rem"
-          value={formData.email}
-          width={["16rem", "380px"]}
-          placeholder={errors.email ? errors.email : "Email"}
-          my="1.5rem"
-          name="email"
-          type="email"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email ? true : false}
-        />
-        <InputBox
-          py="1.1rem"
-          fontSize="1rem"
-          px="1rem"
-          width={["16rem", "380px"]}
-          value={formData.password}
-          placeholder={errors.password ? errors.password : "Password"}
-          my="1.5rem"
-          onChange={handleChange}
-          name="password"
-          type="password"
-          onBlur={handleBlur}
-          error={errors.password ? true : false}
-        />
+      <form>
+        <Container>
+          <Text
+            fontFamily="Abril Fatface"
+            mb="2rem"
+            fontSize="2rem"
+            color="#051c2c"
+            letterSpacing="0.1rem"
+          >
+            PayCA
+          </Text>
+          <Text
+            fontSize="1.3rem"
+            fontWeight="bold"
+            fontFamily="Arial"
+            color="#051C2C"
+          >
+            Welcome back
+          </Text>
+          <InputBox
+            py="1.1rem"
+            fontSize="1rem"
+            px="1rem"
+            value={formData.email}
+            width={["16rem", "380px"]}
+            placeholder={errors.email ? errors.email : "Email"}
+            my="1.5rem"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email ? true : false}
+          />
+          <InputBox
+            py="1.1rem"
+            fontSize="1rem"
+            px="1rem"
+            width={["16rem", "380px"]}
+            value={formData.password}
+            placeholder={errors.password ? errors.password : "Password"}
+            my="1.5rem"
+            onChange={handleChange}
+            name="password"
+            type="password"
+            onBlur={handleBlur}
+            error={errors.password ? true : false}
+          />
 
-        <LinkText display="block" my="2rem">
-          Forgot Password?
-        </LinkText>
+          <LinkText display="block" my="2rem">
+            Forgot Password?
+          </LinkText>
 
-        <Button
-          width="100%"
-          py="0.8rem"
-          px="1rem"
-          borderRadius="0.9rem"
-          fontSize="1rem"
-          mb="1.5rem"
-          onClick={handleLogin}
-        >
-          {loading ? <Spinner /> : <Text>Sign In</Text>}
-        </Button>
-        <Text fontSize="0.8rem" textAlign="center">
-          Don't have a PayCA account?{" "}
-          <Link to="/signup">
-            <LinkText> Sign Up</LinkText>
-          </Link>
-        </Text>
-      </Container>
+          <Button
+            width="100%"
+            py="0.8rem"
+            px="1rem"
+            borderRadius="0.9rem"
+            fontSize="1rem"
+            mb="1.5rem"
+            onClick={handleLogin}
+            type="submit"
+          >
+            {loading ? <Spinner /> : <Text>Sign In</Text>}
+          </Button>
+          <Text fontSize="0.8rem" textAlign="center">
+            Don't have a PayCA account?{" "}
+            <Link to="/signup">
+              <LinkText> Sign Up</LinkText>
+            </Link>
+          </Text>
+        </Container>
+      </form>
     </Container>
   );
 }

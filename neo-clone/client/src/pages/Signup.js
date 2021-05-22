@@ -50,7 +50,9 @@ function Signup() {
     } else return true;
   };
 
-  const handleRegister = () => {
+  const handleRegister = (e) => {
+    e.preventDefault();
+
     if (validate()) {
       setLoading(true);
       auth
@@ -113,88 +115,93 @@ function Signup() {
       justifyContent="center"
       alignItems="center"
     >
-      <Container>
-        <Text
-          fontFamily="Abril Fatface"
-          mb="2rem"
-          fontSize="2rem"
-          color="#051c2c"
-          letterSpacing="0.1rem"
-        >
-          PayCA
-        </Text>
-        <Text
-          fontSize="1.3rem"
-          fontWeight="bold"
-          fontFamily="Arial"
-          color="#051C2C"
-        >
-          Welcome to PayCA
-        </Text>
-        <InputBox
-          py="1.1rem"
-          fontSize="1rem"
-          px="1rem"
-          width={["16rem", "380px"]}
-          placeholder={errors.email ? errors.email : "Email"}
-          my="1.5rem"
-          name="email"
-          type="email"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email ? true : false}
-          value={formData.email}
-        />
-        <InputBox
-          py="1.1rem"
-          fontSize="1rem"
-          px="1rem"
-          width={["16rem", "380px"]}
-          placeholder={errors.password ? "Enter Password" : "Password"}
-          my="1.5rem"
-          onChange={handleChange}
-          name="password"
-          type="password"
-          onBlur={handleBlur}
-          error={errors.password ? true : false}
-          value={formData.password}
-        />
-        <InputBox
-          py="1.1rem"
-          fontSize="1rem"
-          px="1rem"
-          width={["16rem", "380px"]}
-          placeholder={
-            errors.diffPassword ? "Passwords do not match" : "Confirm Password"
-          }
-          my="1.5rem"
-          onChange={handleChange}
-          name="cPassword"
-          type="password"
-          onBlur={handleBlur}
-          error={errors.diffPassword ? true : false}
-          value={formData.cPassword}
-        />
+      <form>
+        <Container>
+          <Text
+            fontFamily="Abril Fatface"
+            mb="2rem"
+            fontSize="2rem"
+            color="#051c2c"
+            letterSpacing="0.1rem"
+          >
+            PayCA
+          </Text>
+          <Text
+            fontSize="1.3rem"
+            fontWeight="bold"
+            fontFamily="Arial"
+            color="#051C2C"
+          >
+            Welcome to PayCA
+          </Text>
+          <InputBox
+            py="1.1rem"
+            fontSize="1rem"
+            px="1rem"
+            width={["16rem", "380px"]}
+            placeholder={errors.email ? errors.email : "Email"}
+            my="1.5rem"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={errors.email ? true : false}
+            value={formData.email}
+          />
+          <InputBox
+            py="1.1rem"
+            fontSize="1rem"
+            px="1rem"
+            width={["16rem", "380px"]}
+            placeholder={errors.password ? "Enter Password" : "Password"}
+            my="1.5rem"
+            onChange={handleChange}
+            name="password"
+            type="password"
+            onBlur={handleBlur}
+            error={errors.password ? true : false}
+            value={formData.password}
+          />
+          <InputBox
+            py="1.1rem"
+            fontSize="1rem"
+            px="1rem"
+            width={["16rem", "380px"]}
+            placeholder={
+              errors.diffPassword
+                ? "Passwords do not match"
+                : "Confirm Password"
+            }
+            my="1.5rem"
+            onChange={handleChange}
+            name="cPassword"
+            type="password"
+            onBlur={handleBlur}
+            error={errors.diffPassword ? true : false}
+            value={formData.cPassword}
+          />
 
-        <Button
-          width="100%"
-          py="0.8rem"
-          px="1rem"
-          borderRadius="0.9rem"
-          mb="1.5rem"
-          fontSize="1rem"
-          onClick={handleRegister}
-        >
-          {loading ? <Spinner /> : <Text>Sign Up</Text>}
-        </Button>
-        <Text fontSize="0.8rem" textAlign="center">
-          Already a PayCA member?{" "}
-          <Link to="/signin">
-            {" "}
-            <LinkText> Sign In </LinkText>
-          </Link>
-        </Text>
-      </Container>
+          <Button
+            width="100%"
+            py="0.8rem"
+            px="1rem"
+            borderRadius="0.9rem"
+            mb="1.5rem"
+            fontSize="1rem"
+            onClick={handleRegister}
+            type="submit"
+          >
+            {loading ? <Spinner /> : <Text>Sign Up</Text>}
+          </Button>
+          <Text fontSize="0.8rem" textAlign="center">
+            Already a PayCA member?{" "}
+            <Link to="/signin">
+              {" "}
+              <LinkText> Sign In </LinkText>
+            </Link>
+          </Text>
+        </Container>
+      </form>
     </Container>
   );
 }
