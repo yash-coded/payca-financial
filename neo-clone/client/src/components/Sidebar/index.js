@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "../Container";
 import { AiTwotoneBank } from "react-icons/ai";
 import { CgCreditCard } from "react-icons/cg";
@@ -37,11 +37,18 @@ const ListItem = styled.li`
 `;
 
 const Index = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(
+    localStorage.getItem("currentPageIndex")
+      ? Number(localStorage.getItem("currentPageIndex"))
+      : 0
+  );
+
   const history = useHistory();
   const dispatch = useDispatch();
+
   const handleClick = (link, index) => {
     if (link.label.toLowerCase() !== "sign out") {
+      localStorage.setItem("currentPageIndex", index);
       setActiveIndex(index);
       history.push(`/${link.label.toLowerCase()}`);
     } else {
@@ -51,6 +58,7 @@ const Index = () => {
   const handleSignOut = () => {
     auth.signOut().then(() => {
       dispatch(removeUser());
+      localStorage.removeItem("currentPageIndex");
       history.push("/signin");
     });
   };

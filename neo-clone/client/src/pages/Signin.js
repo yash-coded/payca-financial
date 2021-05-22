@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { InputBox } from "../components/Input";
 import { Text } from "../components/Text";
 import { Container } from "../components/Container";
@@ -11,6 +11,7 @@ import { setCurrentUser } from "../redux/auth";
 import { useHistory, Link } from "react-router-dom";
 function Signin() {
   const dispatch = useDispatch();
+
   const history = useHistory();
 
   const [formData, setFormData] = useState({
